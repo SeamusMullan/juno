@@ -1,0 +1,17 @@
+[project]
+name = "ampere-backend"
+version = "0.0.1"
+description = "A backend service for this project."
+authors = [
+    { name = "Your Name", email = "your_email@example.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "psutil>=7.0.0",
+    "uvicorn[standard]>=0.18.0",  # Added Uvicorn for ASGI server
+    "httpx>=0.23.0",  # Added HTTPX for making HTTP requests
+    "pydantic>=1.10.0",  # Added Pydantic for data validation
+]
