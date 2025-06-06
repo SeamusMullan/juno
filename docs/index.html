@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juno - Cross-Platform Desktop Application Documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Documentation for Juno, a modern cross-platform desktop application built with Electron + React frontend and Python FastAPI backend.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Themes (light + dark) -->
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@500;700&family=DM+Mono&display=swap">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/custom.css">
+
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Juno',
+      repo: 'https://github.com/seamusmullan/juno',
+      loadSidebar: true,
+      mermaidConfig: {
+       querySelector: ".mermaid",
+      },
+      subMaxLevel: 3,
+      coverpage: true,
+      onlyCover: true,
+      auto2top: true,
+      homepage: 'README.md',
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Search documentation',
+        noData: 'No results found',
+        depth: 6,
+        hideOtherSidebarContent: false
+      },
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      copyCode: {
+        buttonText: 'Copy',
+        errorText: 'Error',
+        successText: 'Copied!'
+      },
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+      plugins: [
+        function(hook) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span><a href="https://github.com/seamusmullan/juno">Juno</a> &copy;2025. Modern Cross-Platform Development!</span>',
+            '<br/><br/>',
+            '<span>Documentation made with ❤️ using <a href="https://docsify.js.org" target="_blank">docsify</a>.</span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function(html) {
+            return html + footer;
+          });
+        }
+      ]
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- Plugins -->
+  <script src="//cdn.jsdelivr.net/npm/d3@7"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    
+    // Determine preferred theme (light/dark)
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set theme for mermaid
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: prefersDark ? 'dark' : 'neutral',
+      flowchart: {
+        curve: 'basis'
+      },
+      sequence: {
+        actorMargin: 80,
+        mirrorActors: false,
+        bottomMarginAdj: 10,
+        noteMargin: 10,
+        messageMargin: 35,
+        boxTextMargin: 15
+      }
+    });
+    
+    // Set data-theme attribute on body to use in CSS
+    document.body.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    
+    // Update theme when system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      const newTheme = e.matches ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', newTheme);
+      
+      // Re-initialize mermaid with new theme
+      mermaid.initialize({
+        theme: e.matches ? 'dark' : 'neutral'
+      });
+      
+      // Re-render all diagrams
+      mermaid.init(undefined, '.mermaid');
+    });
+    
+    window.mermaid = mermaid;
+  </script>
+  <script src="//unpkg.com/docsify-mermaid@2.0.0/dist/docsify-mermaid.js"></script>
+  <script src="//unpkg.com/docsify-mermaid-zoom/dist/docsify-mermaid-zoom.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1/dist/docsify-tabs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest/dist/index.min.js"></script>
+  <script>
+    // Add custom scripts after page loads
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Initialize any custom functionality here
+    });
+    
+    // Re-render Mermaid diagrams after page navigation
+    window.$docsify.plugins.push(function(hook, vm) {
+      hook.doneEach(function() {
+        // Re-initialize mermaid after each page change
+        if (window.mermaid) {
+          window.mermaid.init(undefined, '.mermaid');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
