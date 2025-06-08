@@ -1,0 +1,6 @@
+/* Make Docsify content use full width */
+.content,
+.markdown-section {
+  max-width: 100%;
+  box-sizing: border-box;
+}
