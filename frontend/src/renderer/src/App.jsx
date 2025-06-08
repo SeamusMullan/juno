@@ -1,33 +1,31 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Navigation from './components/Navigation'
+import Dashboard from './pages/Dashboard'
+import ProjectWizard from './pages/ProjectWizard'
+import ProjectGenerator from './pages/ProjectGenerator'
+import TemplateLibrary from './pages/TemplateLibrary'
 
 function App() {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
-
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
+    <Router>
+      <div className="app">
+        <Header />
+        <div className="app-body">
+          <Navigation />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/wizard" element={<ProjectWizard />} />
+              <Route path="/generator" element={<ProjectGenerator />} />
+              <Route path="/templates" element={<TemplateLibrary />} />
+            </Routes>
+          </main>
         </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
+        <Footer />
       </div>
-      <Versions></Versions>
-    </>
+    </Router>
   )
 }
 

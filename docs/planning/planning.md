@@ -163,7 +163,7 @@ This section of the documentation covers the planned implementations for the app
 | Repository URL | `string` | Text Input | - | Git repository URL (when using Repository) |
 | Branch | `string` | Text Input | - | Git branch name (when using Repository) |
 | Template Directory | `string` | Directory Browser | - | Local template path (when using Local Template) |
-| Predefined Template | `enum` | Dropdown | Internal DirektDSP Template, Audio FX Plugin, Instrument Plugin | Quick template selection |
+| Predefined Template | `enum` | Dropdown | Industrial Template, Audio FX Plugin, Instrument Plugin | Quick template selection |
 
 ## UI Features
 
