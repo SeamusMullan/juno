@@ -150,7 +150,8 @@ function TemplateStep({ projectData, onChange }) {
         <div className="radio-group">
           <label className="radio-option">
             <input 
-              type="radio" 
+              type="radio"
+              className="radio-input"
               name="templateSource" 
               value="predefined"
               checked={projectData.templateSource === 'predefined'}
@@ -160,7 +161,8 @@ function TemplateStep({ projectData, onChange }) {
           </label>
           <label className="radio-option">
             <input 
-              type="radio" 
+              type="radio"
+              className="radio-input"
               name="templateSource" 
               value="repository"
               checked={projectData.templateSource === 'repository'}
@@ -170,7 +172,8 @@ function TemplateStep({ projectData, onChange }) {
           </label>
           <label className="radio-option">
             <input 
-              type="radio" 
+              type="radio"
+              className="radio-input"
               name="templateSource" 
               value="local"
               checked={projectData.templateSource === 'local'}
@@ -207,18 +210,20 @@ function TemplateStep({ projectData, onChange }) {
       {projectData.templateSource === 'repository' && (
         <div className="repository-config">
           <div className="form-field">
-            <label>Repository URL</label>
+            <label className="field-label">Repository URL</label>
             <input 
-              type="text" 
+              type="text"
+              className="field-input"
               value={projectData.repositoryUrl}
               onChange={(e) => onChange('repositoryUrl', e.target.value)}
               placeholder="https://github.com/user/template.git"
             />
           </div>
           <div className="form-field">
-            <label>Branch</label>
+            <label className="field-label">Branch</label>
             <input 
-              type="text" 
+              type="text"
+              className="field-input"
               value={projectData.branch}
               onChange={(e) => onChange('branch', e.target.value)}
               placeholder="main"
@@ -230,10 +235,11 @@ function TemplateStep({ projectData, onChange }) {
       {projectData.templateSource === 'local' && (
         <div className="local-template">
           <div className="form-field">
-            <label>Template Directory</label>
+            <label className="field-label">Template Directory</label>
             <div className="directory-input">
               <input 
-                type="text" 
+                type="text"
+                className="field-input"
                 value={projectData.templateDirectory}
                 onChange={(e) => onChange('templateDirectory', e.target.value)}
                 placeholder="/path/to/template"
@@ -249,53 +255,57 @@ function TemplateStep({ projectData, onChange }) {
 
 function ProjectStep({ projectData, onChange }) {
   return (
-    <div className="project-step">
-      <div className="form-row">
+    <div className="project-step">      <div className="form-row">
         <div className="form-field">
-          <label>Project Name</label>
+          <label className="field-label">Project Name</label>
           <input 
-            type="text" 
+            type="text"
+            className="field-input"
             value={projectData.projectName}
             onChange={(e) => onChange('projectName', e.target.value)}
             placeholder="MyAwesomePlugin"
           />
         </div>
         <div className="form-field">
-          <label>Product Name</label>
+          <label className="field-label">Product Name</label>
           <input 
-            type="text" 
+            type="text"
+            className="field-input"
             value={projectData.productName}
             onChange={(e) => onChange('productName', e.target.value)}
             placeholder="My Awesome Plugin"
           />
         </div>
       </div>
-
+      
       <div className="form-row">
         <div className="form-field">
-          <label>Version</label>
+          <label className="field-label">Version</label>
           <input 
-            type="text" 
+            type="text"
+            className="field-input"
             value={projectData.version}
             onChange={(e) => onChange('version', e.target.value)}
             placeholder="1.0.0"
           />
         </div>
         <div className="form-field">
-          <label>Company Name</label>
+          <label className="field-label">Company Name</label>
           <input 
-            type="text" 
+            type="text"
+            className="field-input"
             value={projectData.companyName}
             onChange={(e) => onChange('companyName', e.target.value)}
             placeholder="My Company"
           />
         </div>
       </div>
-
+      
       <div className="form-field">
-        <label>Bundle ID</label>
+        <label className="field-label">Bundle ID</label>
         <input 
-          type="text" 
+          type="text"
+          className="field-input"
           value={projectData.bundleId}
           onChange={(e) => onChange('bundleId', e.target.value)}
           placeholder="com.mycompany.myawesomeplugin"
@@ -316,12 +326,12 @@ function PluginStep({ projectData, onChange }) {
   }
 
   return (
-    <div className="plugin-step">
-      <div className="form-row">
+    <div className="plugin-step">      <div className="form-row">
         <div className="form-field">
-          <label>Manufacturer Code</label>
-          <input 
-            type="text" 
+          <label className="field-label">Manufacturer Code</label>
+          <input
+            type="text"
+            className="field-input"
             value={projectData.manufacturerCode}
             onChange={(e) => onChange('manufacturerCode', e.target.value)}
             placeholder="ABCD"
@@ -329,10 +339,11 @@ function PluginStep({ projectData, onChange }) {
           />
         </div>
         <div className="form-field">
-          <label>Plugin Code</label>
+          <label className="field-label">Plugin Code</label>
           <div className="plugin-code-container">
-            <input 
-              type="text" 
+            <input
+              type="text"
+              className="field-input"
               value={projectData.pluginCode}
               onChange={(e) => onChange('pluginCode', e.target.value)}
               placeholder="EFGH"
@@ -354,12 +365,12 @@ function PluginStep({ projectData, onChange }) {
 
 function OutputStep({ projectData, onChange }) {
   return (
-    <div className="output-step">
-      <div className="form-field">
-        <label>Output Directory</label>
+    <div className="output-step">      <div className="form-field">
+        <label className="field-label">Output Directory</label>
         <div className="directory-input">
-          <input 
-            type="text" 
+          <input
+            type="text"
+            className="field-input"
             value={projectData.outputDirectory}
             onChange={(e) => onChange('outputDirectory', e.target.value)}
             placeholder="/path/to/output"
