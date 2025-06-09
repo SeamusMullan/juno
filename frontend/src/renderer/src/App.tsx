@@ -1,8 +1,12 @@
 import '@mantine/core/styles.css'
-import { MantineProvider } from '@mantine/core'
-
+import { MantineProvider, AppShell } from '@mantine/core'
 import { shadcnTheme } from './theme/theme'
 import { shadcnCssVariableResolver } from './theme/cssVariableResolver'
+
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import Main from './components/Main'
+import Footer from './components/Footer'
 
 const theme = shadcnTheme
 
@@ -13,7 +17,17 @@ function App(): React.JSX.Element {
       defaultColorScheme="dark"
       cssVariablesResolver={shadcnCssVariableResolver}
     >
-      <p>test</p>
+      <AppShell
+        header={{ height: 60 }}
+        navbar={{ width: 250, breakpoint: 'sm' }}
+        footer={{ height: 60 }}
+        padding="md"
+      >
+        <Header />
+        <Sidebar />
+        <Main />
+        <Footer />
+      </AppShell>
     </MantineProvider>
   )
 }
