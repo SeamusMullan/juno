@@ -55,9 +55,24 @@ function extractMetadata(content) {
   const modelMatch = content.match(/Model:\s*(.+?)(?:\n|$)/m);
   metadata.model = modelMatch ? modelMatch[1].trim() : null;
   
-  // Extract a brief summary from the first paragraph after the metadata
-  const summaryMatch = content.match(/---\s*\n\n(.+?)\n\n/s);
-  metadata.summary = summaryMatch ? summaryMatch[1].trim().substring(0, 200) + '...' : '';
+  // Extract a brief summary from the first paragraph after the metadata, excluding headers
+  const summaryMatch = content.match(/---\s*\n\n(.+?)(?:\n\n|\n#)/s);
+  if (summaryMatch) {
+    let summary = summaryMatch[1].trim();
+    // Remove any headers (lines starting with #)
+    summary = summary.replace(/^#{1,6}\s*.+$/gm, '').trim();
+    // Remove any markdown formatting
+    summary = summary.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1');
+    // Take first sentence or 200 chars, whichever is shorter
+    const firstSentence = summary.match(/^[^.!?]*[.!?]/);
+    if (firstSentence && firstSentence[0].length < 200) {
+      metadata.summary = firstSentence[0].trim();
+    } else {
+      metadata.summary = summary.substring(0, 200) + '...';
+    }
+  } else {
+    metadata.summary = '';
+  }
   
   return metadata;
 }
@@ -96,7 +111,7 @@ This page automatically lists all code reviews from the reviews directory, sorte
         day: 'numeric'
       });
       
-      markdown += `### ${index + 1}. [${review.title}](all/${review.filename})
+      markdown += `### ${index + 1}. [${review.title}](reviews/all/${review.filename})
 
 **Date:** ${dateStr}  
 **Reviewer:** ${review.reviewer}  
@@ -116,7 +131,7 @@ ${review.summary}
       
       markdown += `
 
-[📖 Read Full Review](all/${review.filename}) | [🔗 Direct Link](all/${review.filename})
+[📖 Read Full Review](reviews/all/${review.filename}) | [🔗 Direct Link](reviews/all/${review.filename})
 
 ---
 
@@ -125,40 +140,11 @@ ${review.summary}
   }
 
   // Add instructions for adding new reviews
-  markdown += `## Adding New Reviews
+  markdown += `## Quick Start
 
-To add a new review:
+To add a new review, create a markdown file in the \`all/\` directory using the format \`DD_Month_YYYY_title.md\` and run \`npm run docs:reviews\`.
 
-1. Create a markdown file in the \`all/\` directory
-2. Use the naming format: \`DD_Month_YYYY_title-description.md\`
-3. Run \`node generate-list.js\` to update this page
-4. Include these metadata fields in your review:
-
-\`\`\`markdown
-# Review Title
-
-*Date: Month Day, Year*  
-*Reviewer: Your Name/Role*  
-*Subject: What was reviewed*
-
----
-
-## Review Content...
-\`\`\`
-
-## Automation
-
-To automatically update this list when new reviews are added, you can:
-
-1. **Manual:** Run \`node docs/reviews/generate-list.js\` after adding new reviews
-2. **Git Hook:** Add this script to a pre-commit hook
-3. **CI/CD:** Include this script in your build process
-4. **File Watcher:** Use a tool like \`nodemon\` to watch the \`all/\` directory
-
-Example file watcher command:
-\`\`\`bash
-npx nodemon --watch docs/reviews/all --ext md --exec "node docs/reviews/generate-list.js"
-\`\`\`
+📚 [Full Documentation](reviews/DOCUMENTATION.md) | 🌐 [Web Interface](reviews/index.html)
 `;
 
   return markdown;

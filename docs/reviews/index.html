@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juno Code Reviews</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #fff;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+            display: block;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .review-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+        }
+
+        .review-title:hover {
+            color: #3498db;
+        }
+
+        .review-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .review-body {
+            padding: 1.5rem;
+        }
+
+        .review-meta {
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .meta-value {
+            color: #7f8c8d;
+        }
+
+        .review-summary {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #d5dbdb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+
+        .error {
+            text-align: center;
+            padding: 3rem;
+            color: #e74c3c;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Juno Code Reviews</h1>
+            <p class="subtitle">Comprehensive code reviews and architecture assessments</p>
+            <div style="margin-top: 1rem;">
+                <a href="../" style="color: #3498db; text-decoration: none; margin-right: 1rem;">← Back to Documentation</a>
+                <a href="list.md" style="color: #3498db; text-decoration: none; margin-right: 1rem;">📋 Review List</a>
+                <a href="DOCUMENTATION.md" style="color: #3498db; text-decoration: none;">📚 Documentation</a>
+            </div>
+        </header>
+
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="total-reviews">-</span>
+                <div class="stat-label">Total Reviews</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="latest-date">-</span>
+                <div class="stat-label">Latest Review</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="reviewers-count">-</span>
+                <div class="stat-label">Reviewers</div>
+            </div>
+        </div>
+
+        <div id="reviews-container">
+            <div class="loading">Loading reviews...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadReviews() {
+            const container = document.getElementById('reviews-container');
+            
+            try {
+                // List of review files - this would need to be updated when new reviews are added
+                // In a real implementation, this could be generated by the build process
+                const reviewFiles = [
+                    '9_June_2025_frontend-criticism.md',
+                    '8_June_2025_backend-api-review.md'
+                ];
+                
+                const reviews = [];
+                
+                for (const filename of reviewFiles) {
+                    try {
+                        // Use correct path for Docsify context
+                        const response = await fetch(`reviews/all/${filename}`);
+                        const content = await response.text();
+                        
+                        // Parse date from filename
+                        const dateMatch = filename.match(/^(\d{1,2})_([A-Za-z]+)_(\d{4})/);
+                        let reviewDate = new Date();
+                        
+                        if (dateMatch) {
+                            const [, day, month, year] = dateMatch;
+                            const monthNames = {
+                                'January': 0, 'February': 1, 'March': 2, 'April': 3,
+                                'May': 4, 'June': 5, 'July': 6, 'August': 7,
+                                'September': 8, 'October': 9, 'November': 10, 'December': 11
+                            };
+                            reviewDate = new Date(parseInt(year), monthNames[month] || 5, parseInt(day));
+                        }
+                        
+                        // Extract metadata
+                        const titleMatch = content.match(/^#\s*(.+)$/m);
+                        const title = titleMatch ? titleMatch[1].trim() : filename.replace('.md', '');
+                        
+                        const reviewerMatch = content.match(/\*Reviewer:\s*(.+?)\*/);
+                        const reviewer = reviewerMatch ? reviewerMatch[1].trim() : 'Unknown';
+                        
+                        const subjectMatch = content.match(/\*Subject:\s*(.+?)\*/);
+                        const subject = subjectMatch ? subjectMatch[1].trim() : 'Unknown';
+                        
+                        const modelMatch = content.match(/Model:\s*(.+?)$/m);
+                        const model = modelMatch ? modelMatch[1].trim() : null;
+                        
+                        // Extract summary
+                        const summaryMatch = content.match(/## Executive Summary\s*\n\n(.+?)\n\n/s);
+                        const summary = summaryMatch ? summaryMatch[1].trim().substring(0, 200) + '...' : '';
+                        
+                        reviews.push({
+                            filename,
+                            title,
+                            reviewer,
+                            subject,
+                            model,
+                            summary,
+                            date: reviewDate,
+                            path: `reviews/all/${filename}`
+                        });
+                    } catch (error) {
+                        console.warn(`Failed to load review: ${filename}`, error);
+                    }
+                }
+                
+                // Sort by date (newest first)
+                reviews.sort((a, b) => b.date - a.date);
+                
+                // Update stats
+                updateStats(reviews);
+                
+                // Render reviews
+                renderReviews(reviews);
+                
+            } catch (error) {
+                container.innerHTML = `<div class="error">Error loading reviews: ${error.message}</div>`;
+            }
+        }
+        
+        function updateStats(reviews) {
+            document.getElementById('total-reviews').textContent = reviews.length;
+            
+            if (reviews.length > 0) {
+                const latestDate = reviews[0].date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                document.getElementById('latest-date').textContent = latestDate;
+                
+                const uniqueReviewers = new Set(reviews.map(r => r.reviewer)).size;
+                document.getElementById('reviewers-count').textContent = uniqueReviewers;
+            }
+        }
+        
+        function renderReviews(reviews) {
+            const container = document.getElementById('reviews-container');
+            
+            if (reviews.length === 0) {
+                container.innerHTML = '<div class="error">No reviews found.</div>';
+                return;
+            }
+            
+            const html = `
+                <div class="reviews-grid">
+                    ${reviews.map(review => `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <a href="${review.path}" class="review-title">${review.title}</a>
+                                <div class="review-date">${review.date.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}</div>
+                            </div>
+                            <div class="review-body">
+                                <div class="review-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">Subject:</span>
+                                        <span class="meta-value">${review.subject}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Reviewer:</span>
+                                        <span class="meta-value">${review.reviewer}</span>
+                                    </div>
+                                    ${review.model ? `
+                                        <div class="meta-item">
+                                            <span class="meta-label">AI Model:</span>
+                                            <span class="meta-value">${review.model}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                ${review.summary ? `
+                                    <div class="review-summary">${review.summary}</div>
+                                ` : ''}
+                                <div class="review-actions">
+                                    <a href="${review.path}" class="btn btn-primary">Read Review</a>
+                                    <a href="${review.path}" target="_blank" class="btn btn-secondary">Open in New Tab</a>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        // Load reviews when page loads
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+</body>
+</html>
