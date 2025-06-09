@@ -2,6 +2,7 @@
 
 - [Getting Started](getting-started.md)
 - [API Documentation](api/getting-started.md)
+- [API Endpoints](api/endpoints.md)
 - [Planning](planning/planning.md)
 - **Reviews**
   - [Review List](reviews/list.md)

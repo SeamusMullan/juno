@@ -2,13 +2,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # import your routers here
-from api import data, status
+from api import data, status, projects, templates
 
 app = FastAPI()
 
 # Include your routers here
 app.include_router(data.router, prefix="/data", tags=["data"])
 app.include_router(status.router, prefix="/status", tags=["status"])
+app.include_router(projects.router, prefix="/projects", tags=["projects"])
+app.include_router(templates.router, prefix="/templates", tags=["templates"])
 
 # CORS middleware configuration
 # This allows your frontend to communicate with the backend
