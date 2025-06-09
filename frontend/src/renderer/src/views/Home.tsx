@@ -3,7 +3,7 @@ import { IconHome, IconPlus, IconTemplate } from '@tabler/icons-react'
 
 export default function Home(): React.JSX.Element {
   return (
-    <Container size="lg" py="xl">
+    <Container fluid py="xl">
       <Title order={1} mb="xl" ta="center">
         Welcome to Juno
       </Title>

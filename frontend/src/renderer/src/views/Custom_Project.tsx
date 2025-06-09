@@ -90,7 +90,7 @@ export default function CustomProject(): React.JSX.Element {
   }
 
   return (
-    <Container size="md" py="xl">
+    <Container fluid py="xl">
       <Title order={1} mb="xl" ta="center">
         Custom Project Setup
       </Title>

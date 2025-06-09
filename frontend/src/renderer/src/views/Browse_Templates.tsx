@@ -88,7 +88,7 @@ export default function BrowseTemplates(): React.JSX.Element {
     setSuccess('Template setup started! (API call not implemented)')
   }
   return (
-    <Container size="xl" py="xl">
+    <Container fluid py="xl">
       <Title order={1} mb="xl" ta="center">
         Browse Templates
       </Title>
