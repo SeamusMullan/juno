@@ -2,6 +2,8 @@ import { Container, Title, Text, Card, SimpleGrid, Button } from '@mantine/core'
 import { IconHome, IconPlus, IconTemplate } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
+import Recents from '@renderer/components/Home/Recents'
+
 export default function Home(): React.JSX.Element {
   return (
     <Container fluid py="xl">
@@ -58,6 +60,9 @@ export default function Home(): React.JSX.Element {
             </Button>
           </Card.Section>
         </Card>
+      </SimpleGrid>
+      <SimpleGrid cols={1} mt="xl">
+        <Recents />
       </SimpleGrid>
     </Container>
   )
