@@ -1,5 +1,6 @@
 import { Container, Title, Text, Card, SimpleGrid, Button } from '@mantine/core'
 import { IconHome, IconPlus, IconTemplate } from '@tabler/icons-react'
+import { Link } from 'react-router-dom'
 
 export default function Home(): React.JSX.Element {
   return (
@@ -22,7 +23,7 @@ export default function Home(): React.JSX.Element {
             <Text size="sm" c="dimmed" ta="center" mb="md">
               Start a new project from scratch with our guided setup
             </Text>
-            <Button variant="light" fullWidth>
+            <Button variant="light" fullWidth component={Link} to="/create-project">
               Get Started
             </Button>
           </Card.Section>
@@ -37,7 +38,7 @@ export default function Home(): React.JSX.Element {
             <Text size="sm" c="dimmed" ta="center" mb="md">
               Choose from pre-built templates to jumpstart your project
             </Text>
-            <Button variant="light" fullWidth>
+            <Button variant="light" fullWidth component={Link} to="/browse-templates">
               Browse Templates
             </Button>
           </Card.Section>
@@ -52,7 +53,7 @@ export default function Home(): React.JSX.Element {
             <Text size="sm" c="dimmed" ta="center" mb="md">
               Continue working on your recent projects
             </Text>
-            <Button variant="light" fullWidth>
+            <Button variant="light" fullWidth component={Link} to="/projects">
               View Projects
             </Button>
           </Card.Section>
