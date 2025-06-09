@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css'
 import { MantineProvider, AppShell } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { shadcnTheme } from './theme/theme'
 import { shadcnCssVariableResolver } from './theme/cssVariableResolver'
 
@@ -11,6 +12,8 @@ import Footer from './components/Footer'
 const theme = shadcnTheme
 
 function App(): React.JSX.Element {
+  const [sidebarVisible, { toggle: toggleSidebar }] = useDisclosure(false)
+
   return (
     <MantineProvider
       theme={theme}
@@ -19,11 +22,15 @@ function App(): React.JSX.Element {
     >
       <AppShell
         header={{ height: 60 }}
-        navbar={{ width: 250, breakpoint: 'sm' }}
-        footer={{ height: 60 }}
+        navbar={{
+          width: 250,
+          breakpoint: 'sm',
+          collapsed: { mobile: !sidebarVisible, desktop: !sidebarVisible }
+        }}
+        footer={{ height: 40 }}
         padding="md"
       >
-        <Header />
+        <Header toggleSidebar={toggleSidebar} />
         <Sidebar />
         <Main />
         <Footer />
