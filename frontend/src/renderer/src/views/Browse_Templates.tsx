@@ -23,36 +23,17 @@ import {
   IconFolder,
   IconInfoCircle
 } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-// Define a mock templates array to resolve 'templates' not found error
 interface Template {
-  id: string
+  id: number
   name: string
   description: string
-  tags: string[]
-  downloads: number
-  rating: number
+  // Optionally add tags, downloads, rating if backend supports
+  tags?: string[]
+  downloads?: number
+  rating?: number
 }
-
-const templates: Template[] = [
-  {
-    id: '1',
-    name: 'Starter App',
-    description: 'A basic starter template for new projects.',
-    tags: ['starter', 'basic'],
-    downloads: 1234,
-    rating: 4.5
-  },
-  {
-    id: '2',
-    name: 'Dashboard',
-    description: 'A dashboard template with charts and tables.',
-    tags: ['dashboard', 'charts'],
-    downloads: 5678,
-    rating: 4.8
-  }
-]
 
 export default function BrowseTemplates(): React.JSX.Element {
   const [source, setSource] = useState<'predefined' | 'repository' | 'local'>('predefined')
@@ -62,6 +43,25 @@ export default function BrowseTemplates(): React.JSX.Element {
   const [localDir, setLocalDir] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [templates, setTemplates] = useState<Template[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    // Fetch templates from backend
+    fetch('http://localhost:8000/templates/')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch templates')
+        return res.json()
+      })
+      .then((data) => {
+        setTemplates(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError('Could not load templates from backend.' + err.message)
+        setLoading(false)
+      })
+  }, [])
 
   // Handler for local directory selection (placeholder for Electron dialog)
   const handleSelectLocalDir = async (): Promise<void> => {
@@ -87,6 +87,7 @@ export default function BrowseTemplates(): React.JSX.Element {
     }
     setSuccess('Template setup started! (API call not implemented)')
   }
+
   return (
     <Container fluid py="xl">
       <Title order={1} mb="xl" ta="center">
@@ -125,11 +126,12 @@ export default function BrowseTemplates(): React.JSX.Element {
         {source === 'predefined' && (
           <Select
             label="Predefined Template"
-            placeholder="Select a template"
+            placeholder={loading ? 'Loading templates...' : 'Select a template'}
             data={templates.map((t) => ({ value: t.name, label: t.name }))}
             value={selectedTemplate}
             onChange={setSelectedTemplate}
             required
+            disabled={loading || templates.length === 0}
           />
         )}
         {source === 'repository' && (
@@ -181,57 +183,71 @@ export default function BrowseTemplates(): React.JSX.Element {
         Template Library
       </Title>
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
-        {templates.map((template) => (
-          <Card key={template.id} shadow="sm" padding="lg" radius="md" withBorder>
-            <Card.Section p="lg">
-              <Group justify="space-between" align="flex-start" mb="md">
-                <IconTemplate size={32} />
-                <Group gap="xs">
-                  <IconStar size={16} fill="gold" color="gold" />
-                  <Text size="sm" fw={500}>
-                    {template.rating}
-                  </Text>
-                </Group>
-              </Group>
-
-              <Title order={3} mb="sm">
-                {template.name}
-              </Title>
-
-              <Text size="sm" c="dimmed" mb="md">
-                {template.description}
-              </Text>
-
-              <Group gap="xs" mb="md">
-                {template.tags.map((tag) => (
-                  <Badge key={tag} variant="light" size="sm">
-                    {tag}
-                  </Badge>
-                ))}
-              </Group>
-
-              <Group justify="space-between" align="center">
-                <Group gap="xs">
-                  <IconDownload size={16} />
-                  <Text size="sm" c="dimmed">
-                    {template.downloads.toLocaleString()}
-                  </Text>
+        {loading ? (
+          <Text ta="center">Loading templates...</Text>
+        ) : templates.length === 0 ? (
+          <Text ta="center">No templates found.</Text>
+        ) : (
+          templates.map((template) => (
+            <Card key={template.id} shadow="sm" padding="lg" radius="md" withBorder>
+              <Card.Section p="lg">
+                <Group justify="space-between" align="flex-start" mb="md">
+                  <IconTemplate size={32} />
+                  {/* Optionally show rating if available */}
+                  {template.rating && (
+                    <Group gap="xs">
+                      <IconStar size={16} fill="gold" color="gold" />
+                      <Text size="sm" fw={500}>
+                        {template.rating}
+                      </Text>
+                    </Group>
+                  )}
                 </Group>
 
-                <Button
-                  size="sm"
-                  variant="light"
-                  onClick={() => {
-                    setSource('predefined')
-                    setSelectedTemplate(template.name)
-                  }}
-                >
-                  Use Template
-                </Button>
-              </Group>
-            </Card.Section>
-          </Card>
-        ))}
+                <Title order={3} mb="sm">
+                  {template.name}
+                </Title>
+
+                <Text size="sm" c="dimmed" mb="md">
+                  {template.description}
+                </Text>
+
+                {template.tags && (
+                  <Group gap="xs" mb="md">
+                    {template.tags.map((tag) => (
+                      <Badge key={tag} variant="light" size="sm">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </Group>
+                )}
+
+                <Group justify="space-between" align="center">
+                  {/* Optionally show downloads if available */}
+                  {template.downloads && (
+                    <Group gap="xs">
+                      <IconDownload size={16} />
+                      <Text size="sm" c="dimmed">
+                        {template.downloads.toLocaleString()}
+                      </Text>
+                    </Group>
+                  )}
+
+                  <Button
+                    size="sm"
+                    variant="light"
+                    onClick={() => {
+                      setSource('predefined')
+                      setSelectedTemplate(template.name)
+                    }}
+                  >
+                    Use Template
+                  </Button>
+                </Group>
+              </Card.Section>
+            </Card>
+          ))
+        )}
       </SimpleGrid>
     </Container>
   )

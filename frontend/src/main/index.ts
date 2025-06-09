@@ -17,6 +17,8 @@ function createWindow(): void {
     }
   })
 
+  // Remove custom CSP injection, rely on index.html CSP meta tag for now
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })

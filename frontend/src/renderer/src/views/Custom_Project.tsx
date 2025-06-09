@@ -56,7 +56,7 @@ export default function CustomProject(): React.JSX.Element {
   }
 
   // Handler for form submission
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setError(null)
     setSuccess(null)
@@ -86,7 +86,38 @@ export default function CustomProject(): React.JSX.Element {
       setError('Select at least one plugin format.')
       return
     }
-    setSuccess('Custom project setup started! (API call not implemented)')
+    // Call backend API to create project
+    try {
+      const response = await fetch('http://localhost:8000/projects/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: projectName,
+          product_name: productName,
+          version,
+          company_name: companyName,
+          bundle_id: bundleId,
+          manufacturer_code: manufacturerCode,
+          plugin_code: pluginCode,
+          plugin_type: pluginType,
+          plugin_formats: pluginFormats,
+          output_dir: outputDir,
+          git_repo: gitRepo,
+          custom_config: customConfig
+        })
+      })
+      if (!response.ok) {
+        const err = await response.json()
+        setError(err.detail || 'Failed to create project')
+        return
+      }
+      setSuccess('Custom project setup started!')
+    } catch (err) {
+      setError(
+        'Could not connect to backend API. ' +
+          (err instanceof Error ? err.message : 'Unknown error')
+      )
+    }
   }
 
   return (
