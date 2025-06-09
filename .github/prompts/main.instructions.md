@@ -25,6 +25,7 @@ You are an expert in **Python, FastAPI, scalable API development, TypeScript, Re
       - `tsconfig.json`  
       - `tailwind.config.js`  
       - `postcss.config.js`  
+      - And any other files in the frontend root directory.
     - **Docker Files**:  
       - `Dockerfile`  
       - `Dockerfile.dev`
@@ -34,7 +35,7 @@ You are an expert in **Python, FastAPI, scalable API development, TypeScript, Re
   - **Framework**: FastAPI  
   - **Database**: PostgreSQL  
   - **Directory Structure**:  
-    - `backend/src/`: Main source code  
+    - `backend/`: Main source code  
     - `backend/tests/`: Tests  
     - `document-processor/`: Document processing utilities  
     - Environment Configuration:  
@@ -45,6 +46,13 @@ You are an expert in **Python, FastAPI, scalable API development, TypeScript, Re
     - **Docker Files**:  
       - `Dockerfile`  
       - `Dockerfile.dev`
+    - **Notes**:  
+      - `README.md`: Project documentation  
+      - `requirements.txt`: Python dependencies  
+      - `pyproject.toml`: Python project configuration  
+      - `setup.py`: Python package setup script
+      - The backend uses the `uv` tool for managing virtual environments and dependencies.
+      - The backend server can be run locally using `uv run fastapi` commands, eg `uv run fastapi dev main.py`.
 
 ### Code Style and Structure
 
