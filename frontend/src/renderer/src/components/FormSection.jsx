@@ -5,9 +5,7 @@ function FormSection({ title, icon, children }) {
         <span className="form-section-icon">{icon}</span>
         {title}
       </h3>
-      <div className="section-content">
-        {children}
-      </div>
+      <div className="section-content">{children}</div>
     </section>
   )
 }

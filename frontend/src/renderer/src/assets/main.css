@@ -7,7 +7,13 @@ body {
   overflow: hidden;
   background: var(--color-background);
   user-select: none;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
 }
 
 #root {
@@ -1052,31 +1058,31 @@ body {
   .app-body {
     flex-direction: column;
   }
-  
+
   .main-navigation {
     width: 100%;
     padding: 12px 0;
   }
-  
+
   .nav-items {
     flex-direction: row;
     overflow-x: auto;
     padding: 0 16px;
   }
-  
+
   .nav-item {
     flex-shrink: 0;
     min-width: auto;
   }
-  
+
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .templates-container {
     grid-template-columns: 1fr;
   }
-  
+
   .template-details {
     position: static;
     max-height: none;
@@ -1089,34 +1095,34 @@ body {
   .template-library {
     padding: 16px;
   }
-  
+
   .wizard-progress {
     flex-wrap: wrap;
     gap: 16px;
   }
-  
+
   .wizard-progress::before {
     display: none;
   }
-  
+
   .templates-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .library-controls {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .search-input {
     min-width: auto;
   }
-  
+
   .wizard-actions {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .wizard-button {
     width: 100%;
   }
@@ -1184,8 +1190,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Generate button responsive */
@@ -1568,26 +1578,26 @@ body {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .template-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .plugin-code-container {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .generate-code-btn {
     align-self: flex-start;
     min-width: 120px;
   }
-  
+
   .repository-config,
   .local-template {
     padding: 16px;
   }
-  
+
   .preview-card {
     padding: 16px;
   }
@@ -1800,26 +1810,26 @@ body {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .template-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .plugin-code-container {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .generate-code-btn {
     align-self: flex-start;
     min-width: 120px;
   }
-  
+
   .repository-config,
   .local-template {
     padding: 16px;
   }
-  
+
   .preview-card {
     padding: 16px;
   }
@@ -2133,17 +2143,17 @@ body {
     align-items: stretch;
     gap: 12px;
   }
-  
+
   .save-preset {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
-  
+
   .preset-name-input {
     min-width: auto;
   }
-  
+
   .preset-dropdown {
     position: fixed;
     top: 50%;
@@ -2153,17 +2163,17 @@ body {
     margin-top: 0;
     max-height: 60vh;
   }
-  
+
   .form-header {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
   }
-  
+
   .project-form {
     padding: 16px;
   }
-  
+
   .form-section {
     padding: 20px;
   }

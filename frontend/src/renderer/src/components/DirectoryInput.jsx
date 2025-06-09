@@ -25,11 +25,7 @@ function DirectoryInput({ label, value, onChange, error, placeholder, required =
           placeholder={placeholder}
           readOnly
         />
-        <button
-          type="button"
-          className="browse-button"
-          onClick={handleBrowse}
-        >
+        <button type="button" className="browse-button" onClick={handleBrowse}>
           📁 Browse
         </button>
       </div>

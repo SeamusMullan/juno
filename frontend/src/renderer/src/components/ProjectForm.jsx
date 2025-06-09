@@ -12,14 +12,14 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
   const [isGenerating, setIsGenerating] = useState(false)
 
   const updateField = (field, value) => {
-    setProjectData(prev => ({
+    setProjectData((prev) => ({
       ...prev,
       [field]: value
     }))
-    
+
     // Clear error when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [field]: ''
       }))
@@ -27,29 +27,35 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
   }
 
   const generatePluginCode = () => {
-    const name = projectData.projectName.replace(/[^a-zA-Z]/g, '').substring(0, 4).toUpperCase()
+    const name = projectData.projectName
+      .replace(/[^a-zA-Z]/g, '')
+      .substring(0, 4)
+      .toUpperCase()
     const code = name.padEnd(4, 'X')
     updateField('pluginCode', code)
   }
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (!projectData.projectName.trim()) newErrors.projectName = 'Project name is required'
     if (!projectData.productName.trim()) newErrors.productName = 'Product name is required'
     if (!projectData.version.trim()) newErrors.version = 'Version is required'
     if (!projectData.companyName.trim()) newErrors.companyName = 'Company name is required'
     if (!projectData.bundleId.trim()) newErrors.bundleId = 'Bundle ID is required'
-    if (!projectData.manufacturerCode.trim()) newErrors.manufacturerCode = 'Manufacturer code is required'
-    if (projectData.manufacturerCode.length !== 4) newErrors.manufacturerCode = 'Must be exactly 4 characters'
+    if (!projectData.manufacturerCode.trim())
+      newErrors.manufacturerCode = 'Manufacturer code is required'
+    if (projectData.manufacturerCode.length !== 4)
+      newErrors.manufacturerCode = 'Must be exactly 4 characters'
     if (!projectData.pluginCode.trim()) newErrors.pluginCode = 'Plugin code is required'
     if (projectData.pluginCode.length !== 4) newErrors.pluginCode = 'Must be exactly 4 characters'
-    if (!projectData.outputDirectory.trim()) newErrors.outputDirectory = 'Output directory is required'
-    
+    if (!projectData.outputDirectory.trim())
+      newErrors.outputDirectory = 'Output directory is required'
+
     if (projectData.templateSource === 'repository' && !projectData.repositoryUrl.trim()) {
       newErrors.repositoryUrl = 'Repository URL is required'
     }
-    
+
     if (projectData.templateSource === 'local' && !projectData.templateDirectory.trim()) {
       newErrors.templateDirectory = 'Template directory is required'
     }
@@ -60,7 +66,7 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
 
   const handleGenerate = async () => {
     if (!validateForm()) return
-    
+
     setIsGenerating(true)
     try {
       // Send project data to backend
@@ -93,7 +99,7 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
     <div className="project-form">
       <div className="form-header">
         <h2>Create New JUCE Project</h2>
-        <PresetManager 
+        <PresetManager
           presets={presets}
           setPresets={setPresets}
           projectData={projectData}
@@ -121,7 +127,7 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
               required
             />
           </div>
-          
+
           <div className="form-row">
             <TextInput
               label="Version"
@@ -245,7 +251,7 @@ function ProjectForm({ projectData, setProjectData, presets, setPresets }) {
       </div>
 
       <div className="form-footer">
-        <GenerateButton 
+        <GenerateButton
           onClick={handleGenerate}
           disabled={isGenerating}
           isGenerating={isGenerating}

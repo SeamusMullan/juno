@@ -29,13 +29,11 @@ function Navigation() {
   return (
     <nav className="main-navigation">
       <div className="nav-items">
-        {navItems.map(item => (
+        {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
-            className={({ isActive }) => 
-              `nav-item ${isActive ? 'active' : ''}`
-            }
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-label">{item.label}</span>

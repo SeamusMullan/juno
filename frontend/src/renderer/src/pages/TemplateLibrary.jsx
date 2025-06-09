@@ -23,7 +23,8 @@ const PREDEFINED_TEMPLATES = [
   {
     id: 'industrial',
     name: 'Industrial Template',
-    description: 'Professional-grade template with advanced DSP processing and industrial-strength features',
+    description:
+      'Professional-grade template with advanced DSP processing and industrial-strength features',
     features: ['Advanced DSP', 'Professional UI', 'Performance optimized', 'Multi-format support'],
     type: 'Professional',
     complexity: 'Advanced',
@@ -36,10 +37,12 @@ function TemplateLibrary() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
 
-  const filteredTemplates = PREDEFINED_TEMPLATES.filter(template => {
-    const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter = filterType === 'all' || template.type.toLowerCase() === filterType.toLowerCase()
+  const filteredTemplates = PREDEFINED_TEMPLATES.filter((template) => {
+    const matchesSearch =
+      template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      template.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter =
+      filterType === 'all' || template.type.toLowerCase() === filterType.toLowerCase()
     return matchesSearch && matchesFilter
   })
 
@@ -68,8 +71,8 @@ function TemplateLibrary() {
 
         <div className="filter-section">
           <label>Filter by type:</label>
-          <select 
-            value={filterType} 
+          <select
+            value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             className="filter-select"
           >
@@ -83,8 +86,8 @@ function TemplateLibrary() {
 
       <div className="templates-container">
         <div className="templates-grid">
-          {filteredTemplates.map(template => (
-            <div 
+          {filteredTemplates.map((template) => (
+            <div
               key={template.id}
               className={`template-card ${selectedTemplate?.id === template.id ? 'selected' : ''}`}
               onClick={() => setSelectedTemplate(template)}
@@ -95,23 +98,25 @@ function TemplateLibrary() {
                   {template.complexity}
                 </span>
               </div>
-              
+
               <p className="template-description">{template.description}</p>
-              
+
               <div className="template-meta">
                 <span className="template-type">{template.type}</span>
                 <span className="template-updated">Updated: {template.lastUpdated}</span>
               </div>
 
               <div className="template-features">
-                {template.features.map(feature => (
-                  <span key={feature} className="feature-tag">{feature}</span>
+                {template.features.map((feature) => (
+                  <span key={feature} className="feature-tag">
+                    {feature}
+                  </span>
                 ))}
               </div>
 
               <div className="template-actions">
-                <Link 
-                  to="/wizard" 
+                <Link
+                  to="/wizard"
                   state={{ selectedTemplate: template }}
                   className="use-template-btn"
                 >
@@ -127,10 +132,7 @@ function TemplateLibrary() {
           <div className="template-details">
             <div className="details-header">
               <h2>{selectedTemplate.name}</h2>
-              <button 
-                className="close-details"
-                onClick={() => setSelectedTemplate(null)}
-              >
+              <button className="close-details" onClick={() => setSelectedTemplate(null)}>
                 ×
               </button>
             </div>
@@ -144,7 +146,7 @@ function TemplateLibrary() {
               <div className="detail-section">
                 <h3>Features</h3>
                 <ul className="features-list">
-                  {selectedTemplate.features.map(feature => (
+                  {selectedTemplate.features.map((feature) => (
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
@@ -169,18 +171,10 @@ function TemplateLibrary() {
               </div>
 
               <div className="detail-actions">
-                <Link 
-                  to="/wizard" 
-                  state={{ selectedTemplate }}
-                  className="primary-action-btn"
-                >
+                <Link to="/wizard" state={{ selectedTemplate }} className="primary-action-btn">
                   Start with this Template
                 </Link>
-                <Link 
-                  to="/generator" 
-                  state={{ selectedTemplate }}
-                  className="secondary-action-btn"
-                >
+                <Link to="/generator" state={{ selectedTemplate }} className="secondary-action-btn">
                   Advanced Configuration
                 </Link>
               </div>

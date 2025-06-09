@@ -11,9 +11,7 @@ function GenerateButton({ onClick, disabled, isGenerating }) {
           Generating Project...
         </>
       ) : (
-        <>
-          🚀 Generate JUCE Project
-        </>
+        <>🚀 Generate JUCE Project</>
       )}
     </button>
   )

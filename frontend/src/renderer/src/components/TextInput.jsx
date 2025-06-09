@@ -1,12 +1,12 @@
-function TextInput({ 
-  label, 
-  value, 
-  onChange, 
-  error, 
-  placeholder, 
-  required = false, 
+function TextInput({
+  label,
+  value,
+  onChange,
+  error,
+  placeholder,
+  required = false,
   maxLength,
-  type = 'text' 
+  type = 'text'
 }) {
   return (
     <div className="form-field">

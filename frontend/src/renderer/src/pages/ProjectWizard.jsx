@@ -56,7 +56,7 @@ function ProjectWizard() {
   }
 
   const handleInputChange = (field, value) => {
-    setProjectData(prev => ({
+    setProjectData((prev) => ({
       ...prev,
       [field]: value
     }))
@@ -80,10 +80,7 @@ function ProjectWizard() {
   return (
     <div className="project-wizard">
       <div className="wizard-header">
-        <button 
-          className="back-button"
-          onClick={() => navigate('/')}
-        >
+        <button className="back-button" onClick={() => navigate('/')}>
           ← Back to Dashboard
         </button>
         <h1>Project Creation Wizard</h1>
@@ -91,7 +88,7 @@ function ProjectWizard() {
 
       <div className="wizard-progress">
         {WIZARD_STEPS.map((step, index) => (
-          <div 
+          <div
             key={step.id}
             className={`progress-step ${index <= currentStep ? 'active' : ''} ${index === currentStep ? 'current' : ''}`}
           >
@@ -110,28 +107,21 @@ function ProjectWizard() {
           <p>{WIZARD_STEPS[currentStep].description}</p>
         </div>
 
-        <div className="step-content">
-          {renderStepContent()}
-        </div>
+        <div className="step-content">{renderStepContent()}</div>
 
         <div className="wizard-actions">
-          <button 
+          <button
             className="wizard-button secondary"
             onClick={prevStep}
             disabled={currentStep === 0}
           >
             Previous
           </button>
-          
+
           {currentStep === WIZARD_STEPS.length - 1 ? (
-            <button className="wizard-button primary">
-              Generate Project
-            </button>
+            <button className="wizard-button primary">Generate Project</button>
           ) : (
-            <button 
-              className="wizard-button primary"
-              onClick={nextStep}
-            >
+            <button className="wizard-button primary" onClick={nextStep}>
               Next
             </button>
           )}
@@ -149,10 +139,10 @@ function TemplateStep({ projectData, onChange }) {
         <h3>Template Source</h3>
         <div className="radio-group">
           <label className="radio-option">
-            <input 
+            <input
               type="radio"
               className="radio-input"
-              name="templateSource" 
+              name="templateSource"
               value="predefined"
               checked={projectData.templateSource === 'predefined'}
               onChange={(e) => onChange('templateSource', e.target.value)}
@@ -160,10 +150,10 @@ function TemplateStep({ projectData, onChange }) {
             <span className="radio-label">Predefined Templates</span>
           </label>
           <label className="radio-option">
-            <input 
+            <input
               type="radio"
               className="radio-input"
-              name="templateSource" 
+              name="templateSource"
               value="repository"
               checked={projectData.templateSource === 'repository'}
               onChange={(e) => onChange('templateSource', e.target.value)}
@@ -171,10 +161,10 @@ function TemplateStep({ projectData, onChange }) {
             <span className="radio-label">Git Repository</span>
           </label>
           <label className="radio-option">
-            <input 
+            <input
               type="radio"
               className="radio-input"
-              name="templateSource" 
+              name="templateSource"
               value="local"
               checked={projectData.templateSource === 'local'}
               onChange={(e) => onChange('templateSource', e.target.value)}
@@ -188,18 +178,24 @@ function TemplateStep({ projectData, onChange }) {
         <div className="predefined-templates">
           <h3>Choose Template</h3>
           <div className="template-grid">
-            <div className={`template-card ${projectData.predefinedTemplate === 'audio-fx' ? 'selected' : ''}`}
-                 onClick={() => onChange('predefinedTemplate', 'audio-fx')}>
+            <div
+              className={`template-card ${projectData.predefinedTemplate === 'audio-fx' ? 'selected' : ''}`}
+              onClick={() => onChange('predefinedTemplate', 'audio-fx')}
+            >
               <h4>Audio FX Plugin</h4>
               <p>Basic audio effect processor template</p>
             </div>
-            <div className={`template-card ${projectData.predefinedTemplate === 'instrument' ? 'selected' : ''}`}
-                 onClick={() => onChange('predefinedTemplate', 'instrument')}>
+            <div
+              className={`template-card ${projectData.predefinedTemplate === 'instrument' ? 'selected' : ''}`}
+              onClick={() => onChange('predefinedTemplate', 'instrument')}
+            >
               <h4>Instrument Plugin</h4>
               <p>Synthesizer and instrument template</p>
             </div>
-            <div className={`template-card ${projectData.predefinedTemplate === 'industrial' ? 'selected' : ''}`}
-                 onClick={() => onChange('predefinedTemplate', 'industrial')}>
+            <div
+              className={`template-card ${projectData.predefinedTemplate === 'industrial' ? 'selected' : ''}`}
+              onClick={() => onChange('predefinedTemplate', 'industrial')}
+            >
               <h4>Industrial Template</h4>
               <p>Professional-grade template with advanced features</p>
             </div>
@@ -211,7 +207,7 @@ function TemplateStep({ projectData, onChange }) {
         <div className="repository-config">
           <div className="form-field">
             <label className="field-label">Repository URL</label>
-            <input 
+            <input
               type="text"
               className="field-input"
               value={projectData.repositoryUrl}
@@ -221,7 +217,7 @@ function TemplateStep({ projectData, onChange }) {
           </div>
           <div className="form-field">
             <label className="field-label">Branch</label>
-            <input 
+            <input
               type="text"
               className="field-input"
               value={projectData.branch}
@@ -237,7 +233,7 @@ function TemplateStep({ projectData, onChange }) {
           <div className="form-field">
             <label className="field-label">Template Directory</label>
             <div className="directory-input">
-              <input 
+              <input
                 type="text"
                 className="field-input"
                 value={projectData.templateDirectory}
@@ -255,10 +251,12 @@ function TemplateStep({ projectData, onChange }) {
 
 function ProjectStep({ projectData, onChange }) {
   return (
-    <div className="project-step">      <div className="form-row">
+    <div className="project-step">
+      {' '}
+      <div className="form-row">
         <div className="form-field">
           <label className="field-label">Project Name</label>
-          <input 
+          <input
             type="text"
             className="field-input"
             value={projectData.projectName}
@@ -268,7 +266,7 @@ function ProjectStep({ projectData, onChange }) {
         </div>
         <div className="form-field">
           <label className="field-label">Product Name</label>
-          <input 
+          <input
             type="text"
             className="field-input"
             value={projectData.productName}
@@ -277,11 +275,10 @@ function ProjectStep({ projectData, onChange }) {
           />
         </div>
       </div>
-      
       <div className="form-row">
         <div className="form-field">
           <label className="field-label">Version</label>
-          <input 
+          <input
             type="text"
             className="field-input"
             value={projectData.version}
@@ -291,7 +288,7 @@ function ProjectStep({ projectData, onChange }) {
         </div>
         <div className="form-field">
           <label className="field-label">Company Name</label>
-          <input 
+          <input
             type="text"
             className="field-input"
             value={projectData.companyName}
@@ -300,10 +297,9 @@ function ProjectStep({ projectData, onChange }) {
           />
         </div>
       </div>
-      
       <div className="form-field">
         <label className="field-label">Bundle ID</label>
-        <input 
+        <input
           type="text"
           className="field-input"
           value={projectData.bundleId}
@@ -326,7 +322,9 @@ function PluginStep({ projectData, onChange }) {
   }
 
   return (
-    <div className="plugin-step">      <div className="form-row">
+    <div className="plugin-step">
+      {' '}
+      <div className="form-row">
         <div className="form-field">
           <label className="field-label">Manufacturer Code</label>
           <input
@@ -349,11 +347,7 @@ function PluginStep({ projectData, onChange }) {
               placeholder="EFGH"
               maxLength="4"
             />
-            <button 
-              type="button" 
-              className="generate-code-btn"
-              onClick={generatePluginCode}
-            >
+            <button type="button" className="generate-code-btn" onClick={generatePluginCode}>
               Generate
             </button>
           </div>
@@ -365,7 +359,9 @@ function PluginStep({ projectData, onChange }) {
 
 function OutputStep({ projectData, onChange }) {
   return (
-    <div className="output-step">      <div className="form-field">
+    <div className="output-step">
+      {' '}
+      <div className="form-field">
         <label className="field-label">Output Directory</label>
         <div className="directory-input">
           <input
@@ -378,16 +374,26 @@ function OutputStep({ projectData, onChange }) {
           <button className="browse-button">Browse</button>
         </div>
       </div>
-
       <div className="project-preview">
         <h3>Project Preview</h3>
         <div className="preview-card">
           <h4>{projectData.projectName || 'Untitled Project'}</h4>
-          <p><strong>Product:</strong> {projectData.productName || 'N/A'}</p>
-          <p><strong>Version:</strong> {projectData.version}</p>
-          <p><strong>Company:</strong> {projectData.companyName || 'N/A'}</p>
-          <p><strong>Bundle ID:</strong> {projectData.bundleId || 'N/A'}</p>
-          <p><strong>Template:</strong> {projectData.predefinedTemplate || projectData.templateSource}</p>
+          <p>
+            <strong>Product:</strong> {projectData.productName || 'N/A'}
+          </p>
+          <p>
+            <strong>Version:</strong> {projectData.version}
+          </p>
+          <p>
+            <strong>Company:</strong> {projectData.companyName || 'N/A'}
+          </p>
+          <p>
+            <strong>Bundle ID:</strong> {projectData.bundleId || 'N/A'}
+          </p>
+          <p>
+            <strong>Template:</strong>{' '}
+            {projectData.predefinedTemplate || projectData.templateSource}
+          </p>
         </div>
       </div>
     </div>

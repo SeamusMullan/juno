@@ -20,7 +20,7 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
     try {
       const result = await window.electron.ipcRenderer.invoke('save-preset', newPreset)
       if (result.success) {
-        setPresets(prev => [...prev, newPreset])
+        setPresets((prev) => [...prev, newPreset])
         setPresetName('')
         alert('Preset saved successfully!')
       } else {
@@ -43,7 +43,7 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
       try {
         const result = await window.electron.ipcRenderer.invoke('delete-preset', presetId)
         if (result.success) {
-          setPresets(prev => prev.filter(p => p.id !== presetId))
+          setPresets((prev) => prev.filter((p) => p.id !== presetId))
         } else {
           alert(`Error deleting preset: ${result.error}`)
         }
@@ -57,13 +57,10 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
   return (
     <div className="preset-manager">
       <div className="preset-actions">
-        <button
-          className="preset-button"
-          onClick={() => setShowPresets(!showPresets)}
-        >
+        <button className="preset-button" onClick={() => setShowPresets(!showPresets)}>
           📄 Presets
         </button>
-        
+
         <div className="save-preset">
           <input
             type="text"
@@ -73,11 +70,7 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
             className="preset-name-input"
             onKeyPress={(e) => e.key === 'Enter' && savePreset()}
           />
-          <button
-            className="save-button"
-            onClick={savePreset}
-            disabled={!presetName.trim()}
-          >
+          <button className="save-button" onClick={savePreset} disabled={!presetName.trim()}>
             💾 Save
           </button>
         </div>
@@ -89,7 +82,7 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
             {presets.length === 0 ? (
               <div className="no-presets">No presets saved yet</div>
             ) : (
-              presets.map(preset => (
+              presets.map((preset) => (
                 <div key={preset.id} className="preset-item">
                   <div className="preset-info">
                     <span className="preset-name">{preset.name}</span>
@@ -98,16 +91,10 @@ function PresetManager({ presets, setPresets, projectData, setProjectData }) {
                     </span>
                   </div>
                   <div className="preset-actions">
-                    <button
-                      className="load-button"
-                      onClick={() => loadPreset(preset)}
-                    >
+                    <button className="load-button" onClick={() => loadPreset(preset)}>
                       Load
                     </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => deletePreset(preset.id)}
-                    >
+                    <button className="delete-button" onClick={() => deletePreset(preset.id)}>
                       🗑️
                     </button>
                   </div>

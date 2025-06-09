@@ -6,7 +6,7 @@ function RadioGroup({ label, value, onChange, options, error, required = false }
         {required && <span className="required">*</span>}
       </label>
       <div className="radio-group">
-        {options.map(option => (
+        {options.map((option) => (
           <label key={option.value} className="radio-option">
             <input
               type="radio"
