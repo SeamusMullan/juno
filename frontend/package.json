@@ -44,6 +44,7 @@
     "electron-updater": "^6.3.9",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "react-router-dom": "^7.6.2",
     "recharts": "^2.15.3"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.4",
     "electron": "^35.1.5",
     "electron-builder": "^25.1.8",
