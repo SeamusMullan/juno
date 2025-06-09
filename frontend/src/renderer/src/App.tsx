@@ -1,11 +1,22 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
+import '@mantine/core/styles.css'
+import { MantineProvider } from '@mantine/core'
+
+import { shadcnTheme } from './theme/theme'
+import { shadcnCssVariableResolver } from './theme/cssVariableResolver'
+
+const theme = shadcnTheme
 
 function App(): React.JSX.Element {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
 
   return (
-    <>
+    <MantineProvider
+      theme={theme}
+      defaultColorScheme="dark"
+      cssVariablesResolver={shadcnCssVariableResolver}
+    >
       <img alt="logo" className="logo" src={electronLogo} />
       <div className="creator">Powered by electron-vite</div>
       <div className="text">
@@ -28,7 +39,7 @@ function App(): React.JSX.Element {
         </div>
       </div>
       <Versions></Versions>
-    </>
+    </MantineProvider>
   )
 }
 
