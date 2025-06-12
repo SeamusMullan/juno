@@ -1,6 +1,9 @@
 # Projects API endpoints for FastAPI
+
 from fastapi import APIRouter, HTTPException
-from typing import List, Optional
+from typing import List
+from core.models import ProjectCreate
+from services.data_service import generate_project
 
 router = APIRouter()
 
@@ -15,11 +18,9 @@ def list_projects():
     return projects
 
 @router.post("/", summary="Create Project", description="Create a new project.")
-def create_project(project: dict):
-    new_id = max(p["id"] for p in projects) + 1 if projects else 1
-    project["id"] = new_id
-    projects.append(project)
-    return project
+def create_project(project: ProjectCreate):
+    result = generate_project(project)
+    return result
 
 @router.get("/recents", summary="Recent Projects", description="Retrieve a list of recent projects.")
 def recent_projects():
