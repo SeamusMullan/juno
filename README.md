@@ -44,19 +44,10 @@ npm run dev:backend
 
 ## Contributing
 
-### Our Motto
-
-Knowledge should be free and accessible to everyone. No exceptions.
-
-### Contribution
-
 If you would like to contribute, please fork this repo and make pull requests to it. The owners will decide if your changes get included (or may provide you with some changes to make first).
 
 The general guidelines are the basics really..
 
-- KISS (Keep it simple, stupid)
-- DRY (Don't repeat yourself)
-- Brackets on the same lines as functions
 - Don't comment out code, just delete it. We use Git for a reason
 - Be logical with your comments, no need for a whole narrative. Funny ones are allowed though.
 - Swearing is ok, it probably means you know what you're doing
@@ -79,4 +70,4 @@ Thanks to all the people who have interest in this project, have starred it or h
 
 ## License
 
-This project is licensed under the MIT License.
+See LICENSE file for information.
