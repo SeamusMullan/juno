@@ -14,11 +14,6 @@ export default function Sidebar(): React.JSX.Element {
   return (
     <AppShell.Navbar p="md">
       <Stack gap="sm">
-        <Text size="xl" fw={500} c="dimmed" mb="sm" ta="center">
-          Navigation
-        </Text>
-        {/* Home, Create Project, Custom Project, Browse Templates, Settings */}
-        <Divider size="sm" mb="sm" />
         <NavLink
           component={Link}
           to="/"
