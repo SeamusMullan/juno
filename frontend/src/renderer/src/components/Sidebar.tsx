@@ -1,4 +1,4 @@
-import { AppShell, NavLink, Stack} from '@mantine/core'
+import { AppShell, NavLink, Stack } from '@mantine/core'
 import { Link, useLocation } from 'react-router-dom'
 import {
   IconHome,
