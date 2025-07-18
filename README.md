@@ -54,15 +54,15 @@ The general guidelines are the basics really..
 
 On the topic of knowing what you're doing:
 
-I (hi it's Seamus talking now) personally believe that if you can only code with AI, you can't code, but you can prompt. I have nothing against people who want to help and try to vibe-code solutions, but keep this in mind.
+I (hi it's Seamus talking now) personally believe that if you can only code with AI, you can't code, but you can prompt, still an ok skill I guess. I have nothing against people who want to help and try to vibe-code solutions, but keep this in mind.
 
 If you create a PR that is looks suspiscious or *reaks* of AI, don't be surprised if we ask you how it works.
 
-**If you can't explain, it doesn't get put in our codebase.** Simple ain't it?
+**If you can't explain, and you cant justify why it should be included, it doesn't get put in our codebase.** Simple ain't it?
 
 Why? Well I'm glad you (probably) asked.
 
-The code we maintain needs to stay at some standard, using AI makes that much harder. I'm not saying all AI code is bad, but at least know what it does before shovelling thousands of lines our direction. Smaller, more meaningful PRs are *way* more likely to be merged sooner and generally cause less problems when merging too!
+The code we maintain needs to stay at some standard, using AI makes that much harder, hallucinations and mismatched practices n' stuff. I'm not saying all AI code is bad, but at least know what it does before shovelling thousands of lines our direction. Smaller, more meaningful PRs are *way* more likely to be merged sooner and generally cause less problems when merging too!
 
 ### Thanks
 
