@@ -7,18 +7,13 @@ Footer.propTypes = {
 
 export default function Footer(isBackendOnline): React.JSX.Element {
   console.log(isBackendOnline)
+  console.log('Footer rendered with backend status:', isBackendOnline)
   return (
     <AppShell.Footer p="md">
-      {/*
-      Contents of footer
-      - Indicator for backend status (online/offline) (left aligned)
-      - Link to GitHub repository (right aligned)
-      - Rights information (centered)
-      */}
       <Group justify="space-between" align="center">
         <Text size="sm" color="dimmed">
           Backend Status:{' '}
-          {!isBackendOnline ? (
+          {isBackendOnline ? (
             <Text component="span" color="green">
               Online
             </Text>
@@ -29,7 +24,7 @@ export default function Footer(isBackendOnline): React.JSX.Element {
           )}
         </Text>
         <Text size="sm" color="dimmed">
-          © 2025 Juno. See GitHub for License
+          Juno by Seamus Mullan - 2025 - See GitHub for License
         </Text>
         <Anchor
           href="https://github.com/seamusmullan/juno"

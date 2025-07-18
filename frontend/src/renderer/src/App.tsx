@@ -3,6 +3,8 @@ import { MantineProvider, AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { shadcnTheme } from './theme/theme'
 import { shadcnCssVariableResolver } from './theme/cssVariableResolver'
+import { BackendProvider } from './context/BackendContext'
+import { useBackend } from './hooks/useBackend'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -13,25 +15,9 @@ import Footer from './components/Footer'
 
 const theme = shadcnTheme
 
-let backendOnline: boolean = true
-try {
-  const response = await fetch('http://localhost:8000/health')
-  if (response.status != 200) {
-    console.log(response.status);
-    backendOnline = false
-    // maybe do something to say this to the user...
-  } else {
-    backendOnline = true
-}
-} catch (err) {
-  console.log(err)
-  backendOnline = false // it definitely aint workin
-}
-
-console.log(backendOnline ? 'Backend Online' : 'Backend Offline')
-
-function App(): React.JSX.Element {
+function AppContent(): React.JSX.Element {
   const [sidebarVisible, { toggle: toggleSidebar }] = useDisclosure(true)
+  const { isBackendOnline } = useBackend()
 
   return (
     <Router>
@@ -53,10 +39,18 @@ function App(): React.JSX.Element {
           <Header toggleSidebar={toggleSidebar} />
           <Sidebar />
           <Main />
-          <Footer isBackendOnline={backendOnline}/>
+          <Footer isBackendOnline={isBackendOnline} />
         </AppShell>
       </MantineProvider>
     </Router>
+  )
+}
+
+function App(): React.JSX.Element {
+  return (
+    <BackendProvider>
+      <AppContent />
+    </BackendProvider>
   )
 }
 

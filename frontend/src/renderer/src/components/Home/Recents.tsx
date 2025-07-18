@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Button, Group, Text, Loader, Alert, Stack } from '@mantine/core'
 import { IconInfoCircle } from '@tabler/icons-react'
+import { useBackend } from '../../hooks/useBackend'
 
 interface Project {
   id: number
@@ -11,8 +12,15 @@ export default function Recents(): React.JSX.Element {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { isBackendOnline } = useBackend()
 
   useEffect(() => {
+    if (!isBackendOnline) {
+      setError('Backend is currently offline. Recent projects are not available.')
+      setLoading(false)
+      return
+    }
+
     fetch('http://localhost:8000/projects/recents')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch recent projects')
@@ -26,7 +34,7 @@ export default function Recents(): React.JSX.Element {
         setError('Could not load recent projects from backend.')
         setLoading(false)
       })
-  }, [])
+  }, [isBackendOnline])
 
   return (
     <div>
