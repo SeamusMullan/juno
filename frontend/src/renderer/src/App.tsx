@@ -3,9 +3,8 @@ import { MantineProvider, AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { shadcnTheme } from './theme/theme'
 import { shadcnCssVariableResolver } from './theme/cssVariableResolver'
-import { BackendProvider } from './context/BackendContext'
+import { BackendProvider } from './context/BackendProvider'
 import { useBackend } from './hooks/useBackend'
-
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import Header from './components/Header'

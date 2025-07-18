@@ -13,15 +13,9 @@ export default function Footer(isBackendOnline): React.JSX.Element {
       <Group justify="space-between" align="center">
         <Text size="sm" color="dimmed">
           Backend Status:{' '}
-          {isBackendOnline ? (
-            <Text component="span" color="green">
-              Online
-            </Text>
-          ) : (
-            <Text component="span" color="red">
-              Offline
-            </Text>
-          )}
+          <Text component="span" color={isBackendOnline === true ? 'green' : 'red'}>
+            {isBackendOnline === true ? 'Online' : 'Offline'}
+          </Text>
         </Text>
         <Text size="sm" color="dimmed">
           Juno by Seamus Mullan - 2025 - See GitHub for License
